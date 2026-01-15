@@ -128,6 +128,34 @@
         ],
         "description": "You can \"watch\" a component property with the $watch magic method. In the above example, when the button is clicked and open is changed, the provided callback will fire and console.log the new value."
     },
+    "Alpine.js $store": {
+        "prefix": "$store",
+        "body": [
+            "\\$store.${1:storeName}"
+        ],
+        "description": "$store is a magic property that provides access to global Alpine stores. You can use Alpine.store() to define a global store and access it from any component."
+    },
+    "Alpine.js $root": {
+        "prefix": "$root",
+        "body": [
+            "\\$root"
+        ],
+        "description": "$root is a magic property that returns the root element of the current Alpine component tree. Useful for accessing the top-level component from nested components."
+    },
+    "Alpine.js $data": {
+        "prefix": "$data",
+        "body": [
+            "\\$data"
+        ],
+        "description": "$data is a magic property that gives you access to the current component scope. Useful when you need to reference the entire data object."
+    },
+    "Alpine.js $id": {
+        "prefix": "$id",
+        "body": [
+            "\\$id('${1:field-name}')"
+        ],
+        "description": "$id is a magic property that generates unique IDs for elements. Used with x-id directive for generating scoped IDs, particularly useful for accessibility (linking labels to inputs)."
+    },
     "Alpine.js .away": {
         "prefix": ".away",
         "body": [
@@ -177,6 +205,85 @@
         ],
         "description": "The debounce modifier allows you to add a \"debounce\" to a value update. In other words, the event handler will NOT run until a certain amount of time has elapsed since the last event that fired. When the handler is ready to be called, the last handler call will execute."
     },
+    "Alpine.js .throttle": {
+        "prefix": ".throttle",
+        "body": [
+            ".throttle.${1:750}"
+        ],
+        "description": "The throttle modifier limits the event handler to be called at most once every specified milliseconds. Useful for rate-limiting actions like scroll or resize events."
+    },
+    "Alpine.js .self": {
+        "prefix": ".self",
+        "body": [
+            ".self"
+        ],
+        "description": "The self modifier ensures the event handler only executes if the event originated from the element itself, not from a child element."
+    },
+    "Alpine.js .camel": {
+        "prefix": ".camel",
+        "body": [
+            ".camel"
+        ],
+        "description": "The camel modifier converts the event name to camelCase. For example, x-on:custom-event.camel will listen for customEvent."
+    },
+    "Alpine.js .dot": {
+        "prefix": ".dot",
+        "body": [
+            ".dot"
+        ],
+        "description": "The dot modifier converts the event name to dot notation. Useful for listening to events with dots in their names."
+    },
+    "Alpine.js .passive": {
+        "prefix": ".passive",
+        "body": [
+            ".passive"
+        ],
+        "description": "The passive modifier adds the event listener as passive, which improves scrolling performance by indicating the listener won't call preventDefault()."
+    },
+    "Alpine.js .capture": {
+        "prefix": ".capture",
+        "body": [
+            ".capture"
+        ],
+        "description": "The capture modifier adds the event listener in capture phase instead of bubbling phase, so it runs before the event reaches the target element."
+    },
+    "Alpine.js x-effect": {
+        "prefix": "x-effect",
+        "body": [
+            "x-effect=\"${1:console.log('Effect running')}\""
+        ],
+        "description": "x-effect will execute an expression whenever a dependency changes. This is useful for running side effects when data changes."
+    },
+    "Alpine.js x-ignore": {
+        "prefix": "x-ignore",
+        "body": [
+            "x-ignore"
+        ],
+        "description": "x-ignore prevents Alpine from initializing an element and its children. Useful when integrating with other frameworks."
+    },
+    "Alpine.js x-teleport": {
+        "prefix": "x-teleport",
+        "body": [
+            "<template x-teleport=\"${1:body}\">",
+            "\t$0",
+            "</template>"
+        ],
+        "description": "x-teleport allows you to transport an element to another part of the DOM entirely. Useful for modals and tooltips."
+    },
+    "Alpine.js x-id": {
+        "prefix": "x-id",
+        "body": [
+            "x-id=\"['${1:field-name}']\""
+        ],
+        "description": "x-id declares a scope for ID generation. Use with $id() to generate unique, scoped IDs for accessibility."
+    },
+    "Alpine.js x-modelable": {
+        "prefix": "x-modelable",
+        "body": [
+            "x-modelable=\"${1:propertyName}\""
+        ],
+        "description": "x-modelable exposes a property as the target of x-model, allowing parent components to bind to it with x-model."
+    },
     "Alpine.js .transition": {
         "prefix": ".transition",
         "body": [
@@ -187,8 +294,8 @@
     "Alpine.js CDN": {
         "prefix": "alpine-cdn",
         "body": [
-            "<script src=\"https://cdn.jsdelivr.net/gh/alpinejs/alpine@v${1:2.x.x}/dist/alpine.js\" defer></script>"
+            "<script defer src=\"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js\"></script>"
         ],
-        "description": "Add the following script to the end of your <head> section."
+        "description": "Add the following script to the end of your <head> section. Alpine.js v3 with defer attribute for proper initialization."
     }
 }

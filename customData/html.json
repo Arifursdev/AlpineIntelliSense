@@ -553,6 +553,41 @@
         "kind": "markdown",
         "value": "If present, this Boolean attribute indicates that the option is initially selected. If the \u0060\u003Coption\u003E\u0060 element is the descendant of a [\u0060\u003Cselect\u003E\u0060](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select \u0022The HTML \u003Cselect\u003E element represents a control that provides a menu of options\u0022) element whose [\u0060multiple\u0060](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attr-multiple) attribute is not set, only one single \u0060\u003Coption\u003E\u0060 of this [\u0060\u003Cselect\u003E\u0060](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select \u0022The HTML \u003Cselect\u003E element represents a control that provides a menu of options\u0022) element may have the \u0060selected\u0060 attribute.\n\n---\n\n\u0060x-bind\u0060 sets the value of an attribute to the result of a JavaScript expression. The expression has access to all the keys of the component\u0027s data object, and will update every-time its data is updated.\n\n\u003E Note: attribute bindings ONLY update when their dependencies update. The framework is smart enough to observe data changes and detect which bindings care about them.\n\n**Example:** \u0060\u003Cinput x-bind:type=\u0022inputType\u0022\u003E\u0060\n\n**Structure:** \u0060\u003Cinput x-bind:[attribute]=\u0022[expression]\u0022\u003E\u0060\n\n\u003E Note: You are free to use the shorter \u0022:\u0022 syntax: \u0060:type=\u0022...\u0022\u0060\n\n**\u0060x-bind\u0060 for class attributes**\n\n\u0060x-bind\u0060 behaves a little differently when binding to the \u0060class\u0060 attribute.\n\nFor classes, you pass in an object who\u0027s keys are class names, and values are boolean expressions to determine if those class names are applied or not.\n\nFor example:\n\u0060\u003Cdiv x-bind:class=\u0022{ \u0027hidden\u0027: foo }\u0022\u003E\u003C/div\u003E\u0060\n\nIn this example, the \u0022hidden\u0022 class will only be applied when the value of the \u0060foo\u0060 data attribute is \u0060true\u0060.\n\n**\u0060x-bind\u0060 for boolean attributes**\n\n\u0060x-bind\u0060 supports boolean attributes in the same way that value attributes, using a variable as the condition or any JavaScript expression that resolves to \u0060true\u0060 or \u0060false\u0060.\n\nFor example:\n\u0060\u003Cbutton x-bind:disabled=\u0022myVar\u0022\u003EClick me\u003C/button\u003E\u0060\n\nThis will add or remove the \u0060disabled\u0060 attribute when \u0060myVar\u0060 is true or false respectively.\n\nMost common boolean attributes are supported, like \u0060readonly\u0060, \u0060required\u0060, etc."
       }
+    },
+    {
+      "name": "x-effect",
+      "description": {
+        "kind": "markdown",
+        "value": "\u0060x-effect\u0060 is useful for re-evaluating an expression when one of its dependencies change. You can think of it as a watcher where you don\u0027t have to specify what property to watch, it will watch all properties used within it.\n\n**Example:** \u0060\u003Cdiv x-effect=\u0022console.log(\u0027Count is: \u0027 + count)\u0022\u003E\u003C/div\u003E\u0060\n\nIn this example, when the component is initialized, and anytime \u0060count\u0060 changes thereafter, the expression will be re-run and log the new value.\n\n**Use cases:**\n- Automatically update external libraries when data changes\n- React to changes in multiple properties at once\n- Debug reactive data by logging changes"
+      }
+    },
+    {
+      "name": "x-ignore",
+      "description": {
+        "kind": "markdown",
+        "value": "\u0060x-ignore\u0060 prevents Alpine from initializing a block of HTML. This is useful when you want Alpine to ignore a section of the page entirely, for example if you\u0027re using another JavaScript framework in that area.\n\n**Example:** \u0060\u003Cdiv x-ignore\u003E\u003Cdiv x-data=\u0022...\u0022\u003E...\u003C/div\u003E\u003C/div\u003E\u0060\n\nAlpine will not initialize the element with \u0060x-ignore\u0060 or any of its children. This is useful for:\n- Integrating other JavaScript frameworks\n- Working with server-rendered content that shouldn\u0027t be reactive\n- Performance optimization by excluding sections from Alpine\u0027s reactivity"
+      }
+    },
+    {
+      "name": "x-teleport",
+      "description": {
+        "kind": "markdown",
+        "value": "\u0060x-teleport\u0060 allows you to transport part of your Alpine template entirely outside of the component to another part of the DOM. This is useful for things like modals, toasts, and dropdowns where you need to break out of \u0060overflow: hidden\u0060 or \u0060z-index\u0060 constraints.\n\n**Example:** \u0060\u003Ctemplate x-teleport=\u0022body\u0022\u003E\u003Cdiv\u003EModal content\u003C/div\u003E\u003C/template\u003E\u0060\n\n**Structure:** \u0060\u003Ctemplate x-teleport=\u0022[CSS selector]\u0022\u003E...\u003C/template\u003E\u0060\n\nThe contents of the template will be appended to the element matching the selector. Common targets:\n- \u0060body\u0060 - Append to document body\n- \u0060#modal-target\u0060 - Append to a specific element\n\nUseful for modals, tooltips, and dropdown menus that need to escape CSS constraints."
+      }
+    },
+    {
+      "name": "x-id",
+      "description": {
+        "kind": "markdown",
+        "value": "\u0060x-id\u0060 allows you to declare a new \u0022scope\u0022 for any new IDs generated using the \u0060$id()\u0060 magic. It accepts an array of strings (ID names) that will be used for generating IDs with \u0060$id()\u0060.\n\n**Example:**\n\u0060\u0060\u0060html\n\u003Cdiv x-id=\u0022[\u0027text-input\u0027]\u0022\u003E\n    \u003Clabel :for=\u0022$id(\u0027text-input\u0027)\u0022\u003EUsername\u003C/label\u003E\n    \u003Cinput type=\u0022text\u0022 :id=\u0022$id(\u0027text-input\u0027)\u0022\u003E\n\u003C/div\u003E\n\u0060\u0060\u0060\n\nThis will generate matching unique IDs for the label and input. Useful for:\n- Form accessibility (linking labels to inputs)\n- Generating unique IDs for repeated components\n- ARIA attributes that require unique IDs"
+      }
+    },
+    {
+      "name": "x-modelable",
+      "description": {
+        "kind": "markdown",
+        "value": "\u0060x-modelable\u0060 allows you to expose any Alpine property as the target of the \u0060x-model\u0060 directive from a parent component. This is useful for creating reusable components that can be bound with \u0060x-model\u0060.\n\n**Example:**\n\u0060\u0060\u0060html\n\u003Cdiv x-data=\u0022{ content: \u0027...\u0027 }\u0022\u003E\n    \u003Cdiv x-data=\u0022{ text: \u0027...\u0027 }\u0022 x-modelable=\u0022text\u0022 x-model=\u0022content\u0022\u003E...\u003C/div\u003E\n\u003C/div\u003E\n\u0060\u0060\u0060\n\nNow the \u0060text\u0060 property in the child component is bound to the \u0060content\u0060 property in the parent. This enables:\n- Creating custom form controls\n- Building reusable components with two-way binding\n- Component composition with data synchronization"
+      }
     }
   ]
 }
